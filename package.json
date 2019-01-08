@@ -12,7 +12,9 @@
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "install": "^0.12.2",
     "lodash": "^4.17.11",
+    "mongoose": "^5.4.2",
     "nodemon": "^1.18.9"
   }
 }
