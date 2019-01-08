@@ -65,19 +65,22 @@ app.post("/compose", (req, res) => {
     content: postBody
   });
 
-  post.save();
-  res.redirect("/");
+  post.save(err => {
+    if (!err) {
+      res.redirect("/");
+    }
+  });
 });
 
 app.get("/posts/:id", (req, res) => {
-  const requestedTitle = _.lowerCase(req.params.id);
-  posts.forEach(post => {
-    const storedTitle = _.lowerCase(post.title);
-    if (requestedTitle === storedTitle) {
+  const requestedId = req.params.id;
+
+  Post.findOne({_id: requestedId}, (err, post) => {
+    if(!err){
       res.render("post", {
         title: post.title,
         content: post.content
-      })
+      });
     }
   });
 });
