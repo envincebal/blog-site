@@ -31,6 +31,7 @@
 
 .blog-entry{
 	padding: 10px 30px;
+	margin: 0 0 10px 0;
 	border: 2px solid #000;
 	border-radius: 5px;
 }
