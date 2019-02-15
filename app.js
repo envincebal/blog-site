@@ -21,6 +21,7 @@ mongoose.connect("mongodb://localhost:27017/blogDB", {
 });
 
 const postSchema = {
+  date: String,
   title: String,
   content: String
 }
@@ -52,7 +53,13 @@ app.post("/compose", (req, res) => {
   const postTitle = req.body.postTitle;
   const postBody = req.body.postBody;
 
+  let today = new Date();
+  let date =  (today.getMonth() + 1) + '/' + today.getDate()+ '/' + today.getFullYear();
+  let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  let postDate = date + ', ' + time;
+
   const post = new Post({
+    date: postDate,
     title: postTitle,
     content: postBody
   });
@@ -67,8 +74,10 @@ app.post("/compose", (req, res) => {
 app.get("/posts/:id", (req, res) => {
   const requestedId = req.params.id;
 
-  Post.findOne({_id: requestedId}, (err, post) => {
-    if(!err){
+  Post.findOne({
+    _id: requestedId
+  }, (err, post) => {
+    if (!err) {
       res.render("post", {
         title: post.title,
         content: post.content
