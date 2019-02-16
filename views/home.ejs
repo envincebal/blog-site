@@ -5,16 +5,22 @@
 
 <div class="entries-container">
   <% posts.forEach(post => { %>
+    
   <div class="blog-entry">
-    <p>Posted on <%= post.date %></p>
+    <p>Posted on
+      <%= post.date %>
+    </p>
     <h2>
       <%= post.title %>
     </h2>
-
     <div class="entry-footer">
       <a href="/posts/<%= post._id %>" class="post-link"><button type="button" class="btn btn-outline-primary">VIEW</button></a>
-      <button type="button" class="btn btn-outline-secondary">EDIT</button>
-      <button type="button" class="btn btn-outline-danger">DELETE</button>
+      <form action="/edit" method="POST">
+        <button type="button" class="btn btn-outline-secondary">EDIT</button>
+      </form>
+      <form action="/delete" method="POST">
+        <button type="submit" name="delete" value="<%= post._id %>"  class="btn btn-outline-danger">DELETE</button>
+      </form>
     </div>
   </div>
   <% }) %>

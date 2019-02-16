@@ -53,10 +53,8 @@ app.post("/compose", (req, res) => {
   const postTitle = req.body.postTitle;
   const postBody = req.body.postBody;
 
-  let today = new Date();
-  let date =  (today.getMonth() + 1) + '/' + today.getDate()+ '/' + today.getFullYear();
-  let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  let postDate = date + ', ' + time;
+  let date = new Date();
+  let postDate = date.toLocaleString('en-US');
 
   const post = new Post({
     date: postDate,
@@ -82,6 +80,16 @@ app.get("/posts/:id", (req, res) => {
         title: post.title,
         content: post.content
       });
+    }
+  });
+});
+
+app.post("/delete", (req, res) => {
+  const deletePost = req.body.delete;
+
+  Post.findByIdAndDelete(deletePost, (err) => {
+    if (!err) {
+      res.redirect("/");
     }
   });
 });
