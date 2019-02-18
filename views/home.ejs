@@ -1,25 +1,30 @@
 <%- include("partials/header") -%>
-<h1>Home</h1>
-<%- include("partials/modal") -%>
-<button type="button" class="new-entry btn btn-dark" data-toggle="modal" data-target="#exampleModal">New Entry</button>
+<a href="/compose" class="post-link"><button type="button" class="new-entry btn btn-dark">New Entry</button></a>
 
 <div class="entries-container">
   <% posts.forEach(post => { %>
-    
+
   <div class="blog-entry">
-    <p>Posted on
+    <span class="post-date">Posted on
       <%= post.date %>
-    </p>
-    <h2>
-      <%= post.title %>
-    </h2>
+    </span>
+    <% if(post.title.length > 37) { %>
+    <h3>
+      <%= post.title.substring(0, 37) + "..." %>
+    </h3>
+    <% } else { %>
+      <h3>
+        <%= post.title %>
+      </h3>
+    <% } %>
     <div class="entry-footer">
       <a href="/posts/<%= post._id %>" class="post-link"><button type="button" class="btn btn-outline-primary">VIEW</button></a>
-      <form action="/edit" method="POST">
-        <button type="button" class="btn btn-outline-secondary">EDIT</button>
-      </form>
+
+      <a href="/edit/<%= post._id %>" class="post-link"><button type="button" name="edit" value="<%= post.title %>"
+          class="btn btn-outline-secondary">EDIT</button></a>
+
       <form action="/delete" method="POST">
-        <button type="submit" name="delete" value="<%= post._id %>"  class="btn btn-outline-danger">DELETE</button>
+        <button type="submit" name="delete" value="<%= post._id %>" class="btn btn-outline-danger">DELETE</button>
       </form>
     </div>
   </div>
