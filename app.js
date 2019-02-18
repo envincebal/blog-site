@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 app.use(methodOverride('_method'));
 
-mongoose.connect("mongodb://localhost:27017/blogDB", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogDB", {
   useNewUrlParser: true
 });
 // Defines date, title and content for Post Schema
