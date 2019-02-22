@@ -65,11 +65,10 @@ app.post("/compose", (req, res) => {
   const postTitle = req.body.postTitle;
   const postBody = req.body.postBody;
 
-  let date = new Date();
-  let postDate = date.toLocaleString('en-US', {timeZone: "America/Los_Angeles"});
+  let postDate = new Date();
 
   const post = new Post({
-    date: postDate,
+    date: postDate.toLocaleString('en-US'),
     title: postTitle,
     content: postBody
   });
