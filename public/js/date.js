@@ -1,6 +1,8 @@
 let dateFormat = document.querySelector(".post-date");
 
 if (dateFormat !== null) {
-  dateFormat = dateFormat.textContent;
-  dateFormat.toLocaleString('en-US');
+  let dateText = dateFormat.textContent;
+  let localDate = new Date(dateText).toLocaleString('en-US');
+  dateFormat.textContent = localDate;
+
 }
