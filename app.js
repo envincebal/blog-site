@@ -68,7 +68,7 @@ app.post("/compose", (req, res) => {
   let postDate = new Date();
 
   const post = new Post({
-    date: postDate.toLocaleString('en-US'),
+    date: postDate,
     title: postTitle,
     content: postBody
   });
