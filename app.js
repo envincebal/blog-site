@@ -31,12 +31,6 @@ const postSchema = {
 
 const Post = mongoose.model("Post", postSchema);
 
-// Post.find({}, (err, posts) => {
-//   res.render("home", {
-//     posts: posts.reverse()
-//   });
-// });
-
 // Root route that displays all posts stored in database.
 app.get("/", (req, res) => {
 
@@ -62,6 +56,23 @@ app.get("/", (req, res) => {
             totalItems
           });
 
+
+          // Route for updating specific post.
+          app.put('/edit/:id', (req, res) => {
+            console.log(currentPage);
+
+            const postEdit = {
+              title: req.body.postTitle,
+              content: req.body.postBody
+            };
+            Post.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
+              if (err) {
+                console.log(err);
+              } else {
+                res.redirect("/?_method=PUT&page=" + currentPage);
+              }
+            });
+          });
         });
     })
 });
@@ -125,7 +136,7 @@ app.get("/posts/:id", (req, res) => {
 // Route for editing specific post based on ID.
 app.get("/edit/:id", (req, res) => {
   const requestedId = req.params.id;
-
+  let currentPage = parseInt(req.query.page) || 1;
   Post.findOne({
     _id: requestedId
   }, (err, post) => {
@@ -133,24 +144,9 @@ app.get("/edit/:id", (req, res) => {
       res.render("edit", {
         title: post.title,
         content: post.content,
-        id: post._id
+        id: post._id,
+        currentPage
       });
-    }
-  });
-});
-
-// Route for updating specific post.
-app.put('/edit/:id', (req, res) => {
-
-  const postEdit = {
-    title: req.body.postTitle,
-    content: req.body.postBody
-  };
-  Post.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/');
     }
   });
 });
@@ -158,12 +154,12 @@ app.put('/edit/:id', (req, res) => {
 // Route for deleting specific post.
 app.post("/delete", (req, res) => {
   const deletePost = req.body.delete;
-
+  let currentPage = parseInt(req.query.page) || 1;
   Post.findByIdAndRemove(deletePost, (err) => {
     if (err) {
       console.log(err);
     } else {
-      res.redirect('/');
+      res.redirect("/?page=" + currentPage);
     }
   });
 });

@@ -26,7 +26,7 @@
         <button type="button" name="edit" value="<%= post.title %>" class="btn btn-outline-secondary">EDIT</button>
       </a>
 
-      <form action="/delete" method="POST">
+      <form action="/delete?page=<%= currentPage %>" method="POST">
         <button type="submit" name="delete" value="<%= post._id %>" class="btn btn-outline-danger">DELETE</button>
       </form>
     </div>
