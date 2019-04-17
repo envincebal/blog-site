@@ -13,15 +13,18 @@
       <%= post.title.substring(0, 37) + "..." %>
     </h3>
     <% } else { %>
-      <h3>
-        <%= post.title %>
-      </h3>
+    <h3>
+      <%= post.title %>
+    </h3>
     <% } %>
     <div class="entry-footer">
-      <a href="/posts/<%= post._id %>" class="post-link"><button type="button" class="btn btn-outline-primary">VIEW</button></a>
+      <a href="/posts/<%= post._id %>" class="post-link">
+        <button type="button" class="btn btn-outline-primary">VIEW</button>
+      </a>
 
-      <a href="/edit/<%= post._id %>" class="post-link"><button type="button" name="edit" value="<%= post.title %>"
-          class="btn btn-outline-secondary">EDIT</button></a>
+      <a href="/edit/<%= post._id %>" class="post-link">
+        <button type="button" name="edit" value="<%= post.title %>" class="btn btn-outline-secondary">EDIT</button>
+      </a>
 
       <form action="/delete" method="POST">
         <button type="submit" name="delete" value="<%= post._id %>" class="btn btn-outline-danger">DELETE</button>
@@ -29,6 +32,16 @@
     </div>
   </div>
   <% }) %>
-</div>
+  <div class="page-buttons">
+    <% if(totalItems > 3){ %>
+    <a href="/?page=<%= currentPage - 1 %>">
+      <button type="submit" class="btn btn-outline-info newer-posts">Next</button>
+    </a>
+    <a href="/?page=<%= currentPage + 1 %>">
+    <button type="submit" class="btn btn-outline-info older-posts">Previous</button>
+    </a>
 
-<%- include("partials/footer") -%>
+    <% } %>
+  </div>
+
+  <%- include("partials/footer") -%>

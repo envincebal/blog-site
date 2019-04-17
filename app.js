@@ -31,14 +31,39 @@ const postSchema = {
 
 const Post = mongoose.model("Post", postSchema);
 
+// Post.find({}, (err, posts) => {
+//   res.render("home", {
+//     posts: posts.reverse()
+//   });
+// });
+
 // Root route that displays all posts stored in database.
 app.get("/", (req, res) => {
 
-  Post.find({}, (err, posts) => {
-    res.render("home", {
-      posts: posts
-    });
-  });
+  let perPage = 3;
+  let totalItems;
+  let currentPage = parseInt(req.query.page) || 1;
+
+  Post.find()
+    .countDocuments()
+    .then(count => {
+
+      totalItems = count;
+
+      Post.find()
+        .sort({ date: -1 })
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage)
+        .then(posts => {
+
+          res.render("home", {
+            posts,
+            currentPage,
+            totalItems
+          });
+
+        });
+    })
 });
 
 // Route for About page.

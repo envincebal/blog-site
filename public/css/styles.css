@@ -74,6 +74,17 @@ hr {
 	word-break: break-all;
 }
 
+.page-buttons{
+	display: flex;
+	justify-content: center;
+}
+
+.newer-posts,
+.older-posts{
+	width: 100px;
+	margin: 0 10px;
+}
+
 .entry-footer {
 	display: flex;
 	justify-content: flex-end;
