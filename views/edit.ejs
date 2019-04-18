@@ -1,6 +1,6 @@
 <%- include("partials/header") -%>
 <h1>Compose</h1>
-<form action="/edit/<%=id %>?_method=PUT&page=<%= currentPage %>" method="POST">
+<form action="/edit/<%=id %>?_method=PUT" method="POST">
   <div class="form-group">
     <label for="postTitle">Title</label>
     <input type="text" name="postTitle" class="form-control" id="postTitle" autocomplete="off" value="<%= title %>">

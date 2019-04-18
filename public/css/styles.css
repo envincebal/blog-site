@@ -24,7 +24,7 @@ hr {
 	letter-spacing: 5px;
 }
 
-.navbar-nav{
+.navbar-nav {
 	color: #fff;
 }
 
@@ -36,9 +36,18 @@ hr {
 	margin: 0;
 }
 
+.entries-container {
+	height: 450px;
+}
+
+.new-entry-container{
+	display: flex;
+	justify-content: center;
+	margin: 25px 0;
+}
+
 .new-entry {
-	margin: 20px auto;
-	display: block;
+	display: inline-block;
 }
 
 .blog-entry {
@@ -55,10 +64,8 @@ hr {
 	margin: 20px auto 0 auto;
 }
 
-
 .post-body {
 	max-width: 800px;
-
 }
 
 .post-date {
@@ -74,16 +81,24 @@ hr {
 	word-break: break-all;
 }
 
-.page-buttons{
+.page-buttons {
 	display: flex;
 	justify-content: center;
+
 }
 
 .newer-posts,
-.older-posts{
-	width: 100px;
+.older-posts {
 	margin: 0 10px;
 }
+
+.newer-posts-button,
+.older-posts-button {
+	width: 100px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
 
 .entry-footer {
 	display: flex;

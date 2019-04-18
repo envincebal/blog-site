@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
     .then(count => {
 
       totalItems = count;
-
+      const lastPage = Math.ceil(totalItems / perPage);
       Post.find()
         .sort({ date: -1 })
         .skip((currentPage - 1) * perPage)
@@ -53,25 +53,8 @@ app.get("/", (req, res) => {
           res.render("home", {
             posts,
             currentPage,
-            totalItems
-          });
-
-
-          // Route for updating specific post.
-          app.put('/edit/:id', (req, res) => {
-            console.log(currentPage);
-
-            const postEdit = {
-              title: req.body.postTitle,
-              content: req.body.postBody
-            };
-            Post.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
-              if (err) {
-                console.log(err);
-              } else {
-                res.redirect("/?_method=PUT&page=" + currentPage);
-              }
-            });
+            totalItems,
+            lastPage
           });
         });
     })
@@ -151,15 +134,31 @@ app.get("/edit/:id", (req, res) => {
   });
 });
 
+// Route for updating specific post.
+app.put('/edit/:id', (req, res) => {
+  const postEdit = {
+    title: req.body.postTitle,
+    content: req.body.postBody
+  };
+
+  Post.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/");
+    }
+  });
+});
+
 // Route for deleting specific post.
 app.post("/delete", (req, res) => {
   const deletePost = req.body.delete;
-  let currentPage = parseInt(req.query.page) || 1;
+
   Post.findByIdAndRemove(deletePost, (err) => {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/?page=" + currentPage);
+      res.redirect("/");
     }
   });
 });
