@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const methodOverride = require('method-override');
+const methodOverride = require("method-override");
 
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
@@ -11,13 +11,13 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 let app = express();
 const port = process.env.PORT || 3000;
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static("public"));
-app.use(methodOverride('_method'));
+app.use(methodOverride("_method"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogDB", {
   useNewUrlParser: true
@@ -37,7 +37,6 @@ app.get("/", (req, res) => {
   let perPage = 3;
   let totalItems;
   let currentPage = parseInt(req.query.page) || 1;
-
   Post.find()
     .countDocuments()
     .then(count => {
@@ -45,7 +44,9 @@ app.get("/", (req, res) => {
       totalItems = count;
       const lastPage = Math.ceil(totalItems / perPage);
       Post.find()
-        .sort({ date: -1 })
+        .sort({
+          date: -1
+        })
         .skip((currentPage - 1) * perPage)
         .limit(perPage)
         .then(posts => {
@@ -108,7 +109,7 @@ app.get("/posts/:id", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('post', {
+      res.render("post", {
         title: post.title,
         content: post.content
       });
@@ -119,35 +120,39 @@ app.get("/posts/:id", (req, res) => {
 // Route for editing specific post based on ID.
 app.get("/edit/:id", (req, res) => {
   const requestedId = req.params.id;
-  let currentPage = parseInt(req.query.page) || 1;
+
+
   Post.findOne({
     _id: requestedId
   }, (err, post) => {
+    console.log(post);
     if (!err) {
       res.render("edit", {
         title: post.title,
         content: post.content,
         id: post._id,
-        currentPage
+        referer:req.headers.referer
       });
     }
   });
 });
 
 // Route for updating specific post.
-app.put('/edit/:id', (req, res) => {
+app.put("/edit/:id", (req, res) => {
   const postEdit = {
     title: req.body.postTitle,
     content: req.body.postBody
   };
-
+  
   Post.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
+
     if (err) {
       console.log(err);
     } else {
       res.redirect("/");
     }
   });
+
 });
 
 // Route for deleting specific post.
@@ -158,7 +163,7 @@ app.post("/delete", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/");
+      res.redirect("back");
     }
   });
 });
