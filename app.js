@@ -1,9 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const mongoose = require("mongoose");
 const _ = require("lodash");
+const mongoose = require("mongoose");
+const Models = require("./models");
 const methodOverride = require("method-override");
+
+const Posts = Models.Post;
 
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
@@ -22,14 +25,6 @@ app.use(methodOverride("_method"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogDB", {
   useNewUrlParser: true
 });
-// Defines date, title and content for Post Schema
-const postSchema = {
-  date: String,
-  title: String,
-  content: String
-}
-
-const Post = mongoose.model("Post", postSchema);
 
 // Root route that displays all posts stored in database.
 app.get("/", (req, res) => {
@@ -37,13 +32,13 @@ app.get("/", (req, res) => {
   let perPage = 3;
   let totalItems;
   let currentPage = parseInt(req.query.page) || 1;
-  Post.find()
+  Posts.find()
     .countDocuments()
     .then(count => {
 
       totalItems = count;
       const lastPage = Math.ceil(totalItems / perPage);
-      Post.find()
+      Posts.find()
         .sort({
           date: -1
         })
@@ -87,7 +82,7 @@ app.post("/compose", (req, res) => {
 
   let postDate = new Date();
 
-  const post = new Post({
+  const post = new Posts({
     date: postDate,
     title: postTitle,
     content: postBody
@@ -103,7 +98,7 @@ app.post("/compose", (req, res) => {
 // Route for viewing specific post based on ID.
 app.get("/posts/:id", (req, res) => {
   const requestedId = req.params.id
-  Post.findOne({
+  Posts.findOne({
     _id: requestedId
   }, (err, post) => {
     if (err) {
@@ -121,11 +116,10 @@ app.get("/posts/:id", (req, res) => {
 app.get("/edit/:id", (req, res) => {
   const requestedId = req.params.id;
 
-
-  Post.findOne({
+  Posts.findOne({
     _id: requestedId
   }, (err, post) => {
-    console.log(post);
+
     if (!err) {
       res.render("edit", {
         title: post.title,
@@ -144,7 +138,7 @@ app.put("/edit/:id", (req, res) => {
     content: req.body.postBody
   };
   
-  Post.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
+  Posts.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
 
     if (err) {
       console.log(err);
@@ -157,9 +151,9 @@ app.put("/edit/:id", (req, res) => {
 
 // Route for deleting specific post.
 app.post("/delete", (req, res) => {
-  const deletePost = req.body.delete;
+  const deletePosts = req.body.delete;
 
-  Post.findByIdAndRemove(deletePost, (err) => {
+  Posts.findByIdAndRemove(deletePosts, (err) => {
     if (err) {
       console.log(err);
     } else {
