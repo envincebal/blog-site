@@ -1,9 +1,11 @@
-
+<%- include("partials/header") -%>
   <h1>Sign Up</h1>
-  <form action="" method="POST">
+  <form action="/sign-up" method="POST">
     <label for="username">Username</label>
     <input name="username" placeholder="Username" type="text">
     <label for="password">Password</label>
     <input name="password" placeholder="Password" type="text" >
     <button>Sign Up</button>
   </form>
+  <p>Already have an account? Log in <a href="/">HERE</a></p>
+  <%- include("partials/footer") -%>

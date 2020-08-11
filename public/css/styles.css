@@ -42,7 +42,7 @@ hr {
 
 .new-entry-container{
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	margin: 25px 0;
 }
 

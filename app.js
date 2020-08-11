@@ -1,12 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const _ = require("lodash");
 const mongoose = require("mongoose");
 
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
+require("./passport");
+const bcrypt = require("bcrypt");
 
 const Models = require("./models");
 const methodOverride = require("method-override");
@@ -35,45 +34,44 @@ app.use(passport.session());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  console.log(res.locals);
+  next();
+});
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
-passport.use(
-  new LocalStrategy((username, password, callback) => {
-    Users.findOne({
-      username: username
-    }, (err, user) => {
-      if (err) {
-        return callback(err);
-      };
-      if (!user) {
-        return callback(null, false, {
-          msg: "Incorrect username"
-        });
-      }
-      if (user.password !== password) {
-        return callback(null, false, {
-          msg: "Incorrect password"
-        });
-      }
-      return callback(null, user);
-    });
-  })
-);
+app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
-passport.serializeUser((user, callback) => {
-  callback(null, user.id);
+app.post("/sign-up", (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+    const user = new Users({
+      username: req.body.username,
+      password: hashedPassword
+    }).save(err => {
+      if (err) {
+        return next(err);
+      } else {
+        res.redirect("/");
+      }
+    });
+  });
 });
 
-passport.deserializeUser((id, callback) => {
-  Models.User.findById(id, (err, user) => {
-    callback(err, user);
-  });
+app.post("/log-in", passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/"
+}));
+
+app.get("/log-out", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
 
 // Root route that displays all posts stored in database.
 app.get("/", (req, res) => {
-
+ 
   let perPage = 3;
   let totalItems;
   let currentPage = parseInt(req.query.page) || 1;
@@ -101,26 +99,6 @@ app.get("/", (req, res) => {
         });
     })
 });
-
-app.get("/sign-up", (req, res) => res.render("sign-up-form"));
-
-app.post("/sign-up", (req, res, next) => {
-  const user = new Users({
-    username: req.body.username,
-    password: req.body.password
-  }).save(err => {
-    if (err) {
-      return next(err);
-    } else {
-      res.redirect("/");
-    }
-  });
-});
-
-app.post("/log-in", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/"
-}))
 
 // Route for Compose page.
 app.get("/compose", (req, res) => res.render("compose"));

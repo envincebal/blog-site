@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 // Defines date, title and content for Post Schema
 const postSchema = {
   date: String,

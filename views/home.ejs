@@ -1,9 +1,9 @@
-<%- include("partials/header") -%>
-  <% if (user) { %>
-    <div class="new-entry-container">
-      <a href="/compose" class="post-link"><button type="button" class="new-entry btn btn-dark">New Entry</button></a>
-    </div>
 
+  <% if (user) { %>
+    <%- include("partials/header") -%>
+    <div class="new-entry-container">
+      <a href="/compose" class="post-link"><button type="button" class="new-entry btn btn-dark">+ New Entry</button></a>
+    </div>
     <div class="entries-container">
       <% posts.forEach(post => { %>
 
@@ -59,6 +59,7 @@
       <% } %>
     </div>
   <% } else { %>
+    <%- include("partials/header") -%>
     <%- include("./log-in-form.ejs") -%>
   <% } %>
 
