@@ -36,7 +36,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
-  console.log(res.locals);
   next();
 });
 app.use(express.static("public"));
