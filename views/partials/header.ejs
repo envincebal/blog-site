@@ -17,17 +17,17 @@
       <div class="navbar-header">
         <p class="navbar-brand">DAILY JOURNAL</p>
       </div>
+      <% if (currentUser) { %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav ml-auto">
-          <li id="home" class="nav-item"><a class="nav-link" href="/">HOME</a></li>
-          <li id="about" class="nav-item"><a class="nav-link" href="/about">ABOUT US</a></li>
-          <li id="contact" class="nav-item"><a class="nav-link" href="/contact">CONTACT US</a></li>
+          <li id="log-out" class="nav-item"><a class="nav-link" href="/log-out">Log Out</a></li>
         </ul>
       </div>
+    <% } %>
     </div>
   </nav>
   <div class="container">
