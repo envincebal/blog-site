@@ -36,6 +36,12 @@ hr {
 	margin: 0;
 }
 
+.login-container,
+.signup-container {
+	max-width: 500px;
+	margin: 20px auto 0 auto;
+}
+
 .entries-container {
 	height: 450px;
 }
@@ -85,7 +91,6 @@ hr {
 .page-buttons {
 	display: flex;
 	justify-content: center;
-
 }
 
 .newer-posts,
@@ -99,7 +104,6 @@ hr {
 	font-size: 18px;
 	font-weight: bold;
 }
-
 
 .entry-footer {
 	display: flex;

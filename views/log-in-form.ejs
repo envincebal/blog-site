@@ -1,10 +1,15 @@
-
-  <h1>Log In</h1>
-  <form action="/log-in" method="POST">
-    <label for="username">Username</label>
-    <input name="username" placeholder="username" type="text" />
-    <label for="password">Password</label>
-    <input name="password" type="password" />
-    <button>Log In</button>
-    <p>Don't have a account? Sign up <a href="/sign-up">HERE</a></p>
-  </form>
+  <div class="login-container">
+    <h1>Log In</h1>
+    <form action="/log-in" method="POST">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input name="username" placeholder="username" type="text" class="form-control" id="postTitle" autocomplete="off" />
+        <label for="password">Password</label>
+        <input name="password" type="password" class="form-control" id="postTitle" autocomplete="off" />
+      </div>
+      <button type="submit" name="button" class="btn btn-primary">Log In</button>
+      <p>Don't have a account? Sign up <a href="/sign-up">HERE</a></p>
+    </form>
+  </div>
+  
+  
