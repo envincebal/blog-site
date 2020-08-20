@@ -18,7 +18,7 @@ const Users = userModel.User;
 const indexRouter = require("./routes/index");
 const postsRouter = require("./routes/posts");
 
-const port = process.env.PORT || 3000;
+
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogDB", {
   useUnifiedTopology: true,
@@ -82,6 +82,7 @@ app.get("/log-out", (req, res) => {
 
 app.use("/", postsRouter); 
 
+let port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log("Server started on port " + port);
 });
