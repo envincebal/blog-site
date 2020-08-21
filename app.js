@@ -79,7 +79,7 @@ app.get("/log-out", (req, res) => {
 });
 
 
-app.use("/posts", postsRouter);  
+app.use("/", postsRouter);  
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
