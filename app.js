@@ -18,6 +18,7 @@ const Users = userModel.User;
 const indexRouter = require("./routes/index");
 const postsRouter = require("./routes/posts");
 
+
 mongoose.connect(process.env.CONNECTION_URI || "mongodb://localhost:27017/blogDB", {
   useUnifiedTopology: true,
   useNewUrlParser: true 
@@ -44,6 +45,8 @@ app.use(function (req, res, next) {
 });
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
+
+app.use("/", postsRouter); 
 
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
@@ -72,14 +75,11 @@ app.get("/log-out", (req, res) => {
   res.redirect("/");
 });
 
-
 app.get("/log-out", (req, res) => {
   req.logout();
   res.redirect("/");
 });
 
-
-app.use("/", postsRouter);  
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
