@@ -19,7 +19,6 @@ const indexRouter = require("./routes/index");
 const postsRouter = require("./routes/posts");
 
 
-
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogDB", {
   useUnifiedTopology: true,
   useNewUrlParser: true 
@@ -80,7 +79,8 @@ app.get("/log-out", (req, res) => {
   res.redirect("/");
 });
 
-app.use("/", postsRouter); 
+app.use("/", indexRouter); 
+app.use("/posts", postsRouter);  
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
