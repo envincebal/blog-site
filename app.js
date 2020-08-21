@@ -15,7 +15,6 @@ const methodOverride = require("method-override");
 const Posts = postModel.Post;
 const Users = userModel.User;
 
-const indexRouter = require("./routes/index");
 const postsRouter = require("./routes/posts");
 
 
@@ -79,7 +78,7 @@ app.get("/log-out", (req, res) => {
   res.redirect("/");
 });
 
-app.use("/", indexRouter); 
+
 app.use("/posts", postsRouter);  
 
 let port = process.env.PORT || 3000;
