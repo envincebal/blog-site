@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(express.static("public"));
-app.use(methodOverride("_method")); 
+app.use(methodOverride("_method"));
 
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
@@ -72,6 +72,7 @@ app.get("/log-out", (req, res) => {
   res.redirect("/");
 });
 
+
 app.get("/log-out", (req, res) => {
   req.logout();
   res.redirect("/");
@@ -81,6 +82,6 @@ app.get("/log-out", (req, res) => {
 app.use("/", postsRouter);  
 
 let port = process.env.PORT || 3000;
-app.listen(port || 3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+app.listen(port, () => {
+  console.log("Server started on port " + port);
 });
