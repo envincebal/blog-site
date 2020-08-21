@@ -18,7 +18,7 @@ const Users = userModel.User;
 const postsRouter = require("./routes/posts");
 
 
-mongoose.connect(process.env.CONNECTION_URI || "mongodb://localhost:27017/blogDB", {
+mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
   useNewUrlParser: true 
 });
@@ -78,10 +78,10 @@ app.get("/log-out", (req, res) => {
   res.redirect("/");
 });
 
-
 app.use("/", postsRouter);  
 
 let port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log("Server started on port " + port);
+
+app.listen(port, "0.0.0.0", function () {
+  console.log("Listening on Port 3000");
 });
