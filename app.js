@@ -46,8 +46,6 @@ app.use(function (req, res, next) {
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
-app.use("/", postsRouter); 
-
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
 app.post("/sign-up", (req, res, next) => {
@@ -75,11 +73,14 @@ app.get("/log-out", (req, res) => {
   res.redirect("/");
 });
 
+
 app.get("/log-out", (req, res) => {
   req.logout();
   res.redirect("/");
 });
 
+app.use("/", indexRouter); 
+app.use("/posts", postsRouter);  
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
