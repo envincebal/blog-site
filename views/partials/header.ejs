@@ -10,24 +10,16 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="nav-container container">
       <div class="navbar-header">
         <p class="navbar-brand">DAILY JOURNAL</p>
       </div>
-      <% if (currentUser) { %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav ml-auto">
-          <li id="log-out" class="nav-item"><a class="nav-link" href="/log-out">Log Out</a></li>
-        </ul>
-      </div>
-    <% } %>
     </div>
   </nav>
   <div class="container">

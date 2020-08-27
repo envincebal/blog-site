@@ -1,6 +1,4 @@
-  
-  <% if (user) { %>
-    <%- include("partials/header") -%>
+  <%- include("partials/header") -%>
     <div class="new-entry-container">
       <a href="/compose" class="post-link"><button type="button" class="new-entry btn btn-dark">+ New Entry</button></a>
     </div>
@@ -38,11 +36,11 @@
     </div>
     <div class="page-buttons">
       <% if(totalItems > 3){ %>
-        <% if(currentPage !== 1){ %>
+        <% if (currentPage !== 1){ %>
           <a href="/?page=<%= currentPage - 1 %>" class="newer-posts">
             <button type="submit" class="btn btn-outline-info newer-posts-button">Newer</button>
           </a>
-        <% }else { %>
+        <% } else { %>
           <a href="/?page=<%= currentPage - 1 %>" class="newer-posts">
             <button type="submit" class="btn btn-outline-info newer-posts-button" disabled>Newer</button>
           </a>
@@ -51,17 +49,13 @@
           <a href="/?page=<%= currentPage + 1 %>" class="older-posts">
             <button type="submit" class="btn btn-outline-info older-posts-button">Previous</button>
           </a>
-        <% }else { %>
+        <% } else { %>
           <a href="/?page=<%= currentPage + 1 %>" class="older-posts">
             <button type="submit" class="btn btn-outline-info older-posts-button" disabled>Previous</button>
           </a>
         <% } %>
       <% } %>
     </div>
-  <% } else { %>
-    <%- include("partials/header") -%>
-    <%- include("./log-in-form.ejs") -%>
-  <% } %>
 
     
 
