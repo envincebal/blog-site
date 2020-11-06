@@ -10,7 +10,7 @@ module.exports = {
     Posts.find()
       .countDocuments()
       .then(count => {
-
+        
         totalItems = count;
         const lastPage = Math.ceil(totalItems / perPage);
         Posts.find()
@@ -20,7 +20,7 @@ module.exports = {
           .skip((currentPage - 1) * perPage)
           .limit(perPage)
           .then(posts => {
-
+console.log(posts);
             res.render("home", {
               user: req.user,
               posts,
