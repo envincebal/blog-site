@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const postsRouter = require("./routes/posts");
 
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect(process.env.CONNECTION_URI || "mongodb://localhost:27017/blogDB", {
   useUnifiedTopology: true,
-  useNewUrlParser: true
+  useNewUrlParser: true 
 });
+mongoose.set('useFindAndModify', false);
 
 let app = express();
 

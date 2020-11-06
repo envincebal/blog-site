@@ -10,7 +10,6 @@ module.exports = {
     Posts.find()
       .countDocuments()
       .then(count => {
-        
         totalItems = count;
         const lastPage = Math.ceil(totalItems / perPage);
         Posts.find()
@@ -20,7 +19,7 @@ module.exports = {
           .skip((currentPage - 1) * perPage)
           .limit(perPage)
           .then(posts => {
-console.log(posts);
+
             res.render("home", {
               user: req.user,
               posts,
@@ -89,8 +88,8 @@ console.log(posts);
 
   edit_put_id: (req, res) => {
     const postEdit = {
-      title: req.body.postTitle,
-      content: req.body.postBody
+      title: req.body.editTitle,
+      content: req.body.editBody
     };
 
     Posts.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {
