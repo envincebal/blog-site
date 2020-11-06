@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const postsRouter = require("./routes/posts");
 
-mongoose.connect(process.env.CONNECTION_URI || "mongodb://localhost:27017/blogDB", {
+mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
-  useNewUrlParser: true 
+  useNewUrlParser: true
 });
 
 let app = express();
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
-app.use("/", postsRouter);  
+app.use("/", postsRouter);
 
 let port = process.env.PORT || 3000;
 
