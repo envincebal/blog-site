@@ -4,7 +4,7 @@ A CRUD operation blog app using Node.js, Express.js, Mongoose and MongoDB on the
 
 ### Demo
 
-Click [HERE](https://vast-scrubland-23293.herokuapp.com/) to view app.
+Click [HERE](https://frozen-peak-96391.herokuapp.com/) to view app.
 
 ### Installing and running locally
 Download the zip or clone and within the root directory run the following to install dependencies:
