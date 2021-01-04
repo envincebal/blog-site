@@ -4,11 +4,11 @@
   <form action="/compose" method="POST">
     <div class="form-group">
       <label for="postTitle">Title</label>
-      <input type="text" name="postTitle" class="form-control" id="postTitle" autocomplete="off">
+      <input type="text" name="postTitle" class="form-control" id="postTitle" autocomplete="off" onkeyup="composeHandler()">
       <label for="postBody">Post</label>
-      <textarea name="postBody" class="form-control" autocomplete="off" rows="8"></textarea>
+      <textarea id="postBody" name="postBody" class="form-control" autocomplete="off" rows="8" onkeyup="composeHandler()"></textarea>
     </div>
-    <button type="submit" name="button" class="btn btn-primary">Publish</button>
+      <button type="submit" name="button" class="btn btn-primary" disabled>Publish</button>
   </form>
 </div>
 <%- include("partials/footer") -%>

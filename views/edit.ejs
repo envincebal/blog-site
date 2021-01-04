@@ -4,9 +4,9 @@
 <form action="/edit/<%= id %>?_method=PUT" method="POST">
   <div class="form-group">
     <label for="editTitle">Title</label>
-    <input type="text" name="editTitle" class="form-control" id="editTitle" autocomplete="off" value="<%= title %>">
+    <input type="text" name="editTitle" class="form-control" id="editTitle" autocomplete="off" value="<%= title %>" onkeyup="editHandler()">
     <label for="editBody">Post</label>
-    <textarea name="editBody" class="form-control" autocomplete="off" rows="8"><%= content %></textarea>
+    <textarea name="editBody" id="editBody" class="form-control" autocomplete="off" rows="8" onkeyup="editHandler()"><%= content %></textarea>
   </div>
     <button type="submit" name="button" class="btn btn-primary">Edit</button>
 </form>

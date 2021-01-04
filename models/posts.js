@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const postSchema = {
   date: String,
   title: String,
-  content: String 
+  content: String
 }
 
 const Post = mongoose.model("Post", postSchema);

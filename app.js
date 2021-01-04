@@ -6,7 +6,7 @@ const postsRouter = require("./routes/posts");
 
 mongoose.connect(process.env.CONNECTION_URI || "mongodb://localhost:27017/blogDB", {
   useUnifiedTopology: true,
-  useNewUrlParser: true 
+  useNewUrlParser: true
 });
 mongoose.set('useFindAndModify', false);
 
@@ -16,7 +16,7 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({
   extended: true
-})); 
+}));
 
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
@@ -25,6 +25,6 @@ app.use("/", postsRouter);
 
 let port = process.env.PORT || 3000;
 
-app.listen(port, "0.0.0.0", function () {
+app.listen(port, function () {
   console.log("Listening on Port 3000");
 });
