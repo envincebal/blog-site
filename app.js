@@ -1,14 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const postsRouter = require("./routes/posts");
-
-mongoose.connect(process.env.CONNECTION_URI || "mongodb://localhost:27017/blogDB", {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-});
-mongoose.set('useFindAndModify', false);
 
 let app = express();
 
@@ -19,12 +12,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(express.static("public"));
-app.use(methodOverride("_method"));
+app.use(methodOverride("_method")); 
 
 app.use("/", postsRouter);
 
-let port = process.env.PORT || 3000;
-
-app.listen(port, function () {
-  console.log("Listening on Port 3000");
-});
+module.exports = app;
