@@ -1,6 +1,6 @@
-const postModel = require("../models/posts");
-const Posts = postModel.Post;
-
+const postModel = require("../models/postModel");
+const Posts = postModel;
+ 
 module.exports = {
   index: (req, res) => {
 
