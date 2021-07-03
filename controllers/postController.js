@@ -2,7 +2,7 @@ const postModel = require("../models/postModel");
 const Posts = postModel;
  
 module.exports = {
-  index: (req, res) => {
+  index: (req, res, next) => {
 
     let perPage = 3;
     let totalItems;
@@ -31,9 +31,9 @@ module.exports = {
       })
   },
 
-  compose_get: (req, res) => res.render("compose"),
+  compose_get: (req, res, next) => res.render("compose"),
 
-  compose_post: (req, res) => {
+  compose_post: (req, res, next) => {
     const postTitle = req.body.postTitle;
     const postBody = req.body.postBody;
 
@@ -52,7 +52,7 @@ module.exports = {
     });
   },
 
-  posts_get_id: (req, res) => {
+  posts_get_id: (req, res, next) => {
     const requestedId = req.params.id
     Posts.findOne({
       _id: requestedId
@@ -68,7 +68,7 @@ module.exports = {
     })
   },
 
-  edit_get_id: (req, res) => {
+  edit_get_id: (req, res, next) => {
     const requestedId = req.params.id;
 
     Posts.findOne({
@@ -86,7 +86,7 @@ module.exports = {
     });
   },
 
-  edit_put_id: (req, res) => {
+  edit_put_id: (req, res, next) => {
     const postEdit = {
       title: req.body.editTitle,
       content: req.body.editBody
@@ -102,7 +102,7 @@ module.exports = {
     });
   },
 
-  delete_post: (req, res) => {
+  delete_post: (req, res, next) => {
     const deletePosts = req.body.delete;
 
     Posts.findByIdAndRemove(deletePosts, (err) => {
