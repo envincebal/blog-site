@@ -1,5 +1,6 @@
 const userModel = require("../models/userModel");
 const Users = userModel;
+const bcrypt = require("bcrypt");
 
 module.exports = {
 
@@ -19,13 +20,17 @@ module.exports = {
   },
 
   signup_post: (req, res, next) => {
-    const user = new Users({
-      username: req.body.username,
-      password: req.body.password
-    }).save(err => {
-      return err;
+
+    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+      const user = new Users({
+        username: req.body.username,
+        password: hashedPassword
+      }).save(err => {
+        return err;
+      });
+      res.redirect("/");
     });
-    res.redirect("/");
+
   }
 
 }

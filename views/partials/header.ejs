@@ -16,6 +16,10 @@
       <div class="navbar-header">
         <p class="navbar-brand">DAILY JOURNAL</p>
       </div>
+      <% if (currentUser) { %> 
+        <a href="/compose" class="post-link"><button type="button" class="new-entry btn btn-dark">+ New Entry</button></a>
+        <a href="/log-out" class="post-link"><button type="button" class="new-entry btn btn-dark">Log Out</button></a>
+        <% } %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -1,8 +1,6 @@
 <%- include("partials/header") -%>
-  <% if (user) { %>
-    <div class="new-entry-container">
-      <a href="/compose" class="post-link"><button type="button" class="new-entry btn btn-dark">+ New Entry</button></a>
-    </div>
+  <% if (currentUser) { %>
+    <h1>WELCOME BACK <%= user.username %></h1>
     <div class="entries-container">
       <% posts.forEach(post => { %>
 
