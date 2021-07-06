@@ -23,8 +23,8 @@ module.exports = {
 
     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
       const user = new Users({
-        username: req.body.username,
-        password: hashedPassword
+        Username: req.body.username,
+        Password: hashedPassword
       }).save(err => {
         return err;
       });

@@ -14,7 +14,7 @@ module.exports = {
         const lastPage = Math.ceil(totalItems / perPage);
         Posts.find()
           .sort({
-            date: -1
+            Date: -1
           })
           .skip((currentPage - 1) * perPage)
           .limit(perPage)
@@ -40,9 +40,9 @@ module.exports = {
     let postDate = new Date();
 
     const post = new Posts({
-      date: postDate,
-      title: postTitle,
-      content: postBody
+      Date: postDate,
+      Title: postTitle,
+      Content: postBody
     });
 
     post.save(err => {
@@ -61,8 +61,8 @@ module.exports = {
         console.log(err);
       } else {
         res.render("post", {
-          title: post.title,
-          content: post.content
+          Title: post.title,
+          Content: post.content
         });
       }
     })
@@ -77,8 +77,8 @@ module.exports = {
 
       if (!err) {
         res.render("edit", {
-          title: post.title,
-          content: post.content,
+          Title: post.title,
+          Content: post.content,
           id: post._id,
           referer: req.headers.referer
         });
@@ -88,8 +88,8 @@ module.exports = {
 
   edit_put_id: (req, res, next) => {
     const postEdit = {
-      title: req.body.editTitle,
-      content: req.body.editBody
+      Title: req.body.editTitle,
+      Content: req.body.editBody
     };
 
     Posts.findByIdAndUpdate(req.params.id, postEdit, (err, post) => {

@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const userSchema = {
-  username: {
+  Username: {
     type: String,
     required: true
   },
-  password: {
+  Password: {
     type: String,
     required: true
   }
