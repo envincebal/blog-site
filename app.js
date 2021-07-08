@@ -32,7 +32,6 @@ app.use((req, res, next) => {
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
-app.use("/", postsRouter);
 app.use("/", usersRouter);
 
 module.exports = app;
