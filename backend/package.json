@@ -4,7 +4,7 @@
   "description": "A CRUD operation blog app using Node.js, Express.js, Mongoose and MongoDB on the back-end and Bootstrap and EJS templating on the front-end.",
   "main": "app.js",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "bl": "^2.2.0",
     "body-parser": "^1.19.0",
     "bson": "^1.1.4",
@@ -19,7 +19,7 @@
     "method-override": "^3.0.0",
     "mime": "^1.6.0",
     "minimist": "^1.2.5",
-    "mongoose": "^5.13.0",
+    "mongoose": "^6.0.7",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
