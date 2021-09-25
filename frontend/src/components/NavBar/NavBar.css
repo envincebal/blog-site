@@ -1,0 +1,26 @@
+.navbar {
+	padding: 10px 0;
+	border: 0;
+	border-radius: 0;
+	margin-bottom: 0;
+	font-size: 12px;
+	letter-spacing: 5px;
+}
+
+.nav-container{
+  padding: 5px 10px;
+}
+
+.navbar-brand {
+	margin: 0;
+}
+
+.new-entry-container{
+	display: flex;
+	justify-content: flex-end;
+
+}
+
+.new-entry {
+	display: inline-block;
+}
