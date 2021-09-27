@@ -5,13 +5,13 @@ import Button from 'react-bootstrap/Button';
 const NavBar = () => {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="nav-container container">
-          <div class="navbar-header">
-            <p class="navbar-brand">DAILY JOURNAL</p>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="nav-container container">
+          <div className="navbar-header">
+            <p className="navbar-brand">DAILY JOURNAL</p>
           </div>
-          <div class="new-entry-container">
-            <a href="/compose" class="post-link">
+          <div className="new-entry-container">
+            <a href="/compose" className="post-link">
               <Button type="button" variant="secondary">
                 + New Entry
               </Button>

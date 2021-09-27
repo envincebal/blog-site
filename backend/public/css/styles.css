@@ -10,6 +10,14 @@ hr {
 	border-top: 2px solid #000;
 }
 
+.about-body,
+.contact-body,
+.post-body,
+.compose-body {
+	margin: 20px auto 0 auto;
+}
+
+
 .container-fluid {
 	padding-top: 70px;
 	padding-bottom: 70px;
@@ -62,13 +70,6 @@ hr {
 	margin: 0 auto 10px auto;
 	border: 1px solid #000;
 	border-radius: 5px;
-}
-
-.about-body,
-.contact-body,
-.post-body,
-.compose-body {
-	margin: 20px auto 0 auto;
 }
 
 .post-body {

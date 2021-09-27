@@ -1,0 +1,30 @@
+.blog-entry {
+	max-width: 550px;
+	padding: 10px 30px;
+	margin: 0 auto 10px auto;
+	border: 1px solid #000;
+	border-radius: 5px;
+}
+
+.post-body {
+	max-width: 800px;
+}
+
+.post-date {
+	color: #858484;
+}
+
+.entry-footer {
+	display: flex;
+	justify-content: flex-end;
+	margin: 20px 0 0 0;
+}
+
+.entry-footer>:not(:last-child) {
+	margin: 0 10px 0 0;
+}
+
+.post-link:hover {
+	text-decoration: none;
+	color: #fff;
+}

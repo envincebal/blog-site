@@ -20,7 +20,7 @@ module.exports = {
           .limit(perPage)
           .then(posts => {
 
-            res.render("home", {
+            res.json({
               user: req.user,
               posts,
               currentPage,
@@ -31,7 +31,6 @@ module.exports = {
       })
   },
 
-  compose_get: (req, res) => res.render("compose"),
 
   compose_post: (req, res) => {
     const postTitle = req.body.postTitle;
@@ -60,7 +59,7 @@ module.exports = {
       if (err) {
         console.log(err);
       } else {
-        res.render("post", {
+        res.json({
           title: post.title,
           content: post.content
         });
@@ -76,7 +75,7 @@ module.exports = {
     }, (err, post) => {
 
       if (!err) {
-        res.render("edit", {
+        res.json({
           title: post.title,
           content: post.content,
           id: post._id,

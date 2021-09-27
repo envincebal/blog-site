@@ -1,0 +1,20 @@
+.entries-container {
+	height: 450px;
+}
+
+.page-buttons {
+	display: flex;
+	justify-content: center;
+}
+
+.newer-posts,
+.older-posts {
+	margin: 0 10px;
+}
+
+.newer-posts-button,
+.older-posts-button {
+	width: 100px;
+	font-size: 18px;
+	font-weight: bold;
+}
