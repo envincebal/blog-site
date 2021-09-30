@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./NavBar.css";
 
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 const NavBar = () => {
   return (
     <div>
@@ -11,11 +12,11 @@ const NavBar = () => {
             <p className="navbar-brand">DAILY JOURNAL</p>
           </div>
           <div className="new-entry-container">
-            <a href="/compose" className="post-link">
+            <Link to={"/compose"}>
               <Button type="button" variant="secondary">
                 + New Entry
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

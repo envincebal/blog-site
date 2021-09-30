@@ -12,9 +12,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.json());
 
 app.use(express.static("public"));
 app.use(methodOverride("_method")); 

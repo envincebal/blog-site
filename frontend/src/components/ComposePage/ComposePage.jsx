@@ -1,8 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import axios from "axios";
+
 const ComposePage = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const date = new Date();
+  const handleCompose = (e) => {
+    e.preventDefault();
+
+    const composeURL = "http://localhost:8080/compose";
+
+    axios.post(composeURL, {
+      title,
+      content,
+      date
+    })
+    .then(res => {
+      console.log(res.data);
+      window.open("/", "_self");
+    })
+  }
   return (
     <div className="compose-body">
       <h1>Compose</h1>
@@ -13,26 +33,25 @@ const ComposePage = () => {
             type="text"
             name="postTitle"
             className="form-control"
-            id="postTitle"
             autoComplete="off"
-            onKeyUp="composeHandler()"
+            value={title} onChange={e => setTitle(e.target.value)}
           />
-          <Form.Label htmlFor="postBody">Post</Form.Label>
+          <Form.Label htmlFor="postContent">Post</Form.Label>
           <Form.Control
             as="textarea"
-            id="postBody"
-            name="postBody"
+            name="postContent"
             className="form-control"
             autoComplete="off"
             rows="8"
-            onKeyUp="composeHandler()"
+            value={content} onChange={e => setContent(e.target.value)}
           />
         </Form.Group>
+
         <Button
-          type="submit"
+          onClick={handleCompose}
           name="button"
           className="btn btn-primary"
-          disabled
+          disabled={!title || !content}
         >
           Publish
         </Button>

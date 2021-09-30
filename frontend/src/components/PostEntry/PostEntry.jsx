@@ -1,37 +1,50 @@
-import React from 'react'
+import React from "react";
+import axios from "axios";
 
 import "./PostEntry.css";
 const PostEntry = (props) => {
+  const deletePost = (e, id) => {
+    e.preventDefault();
+    axios.delete("http://localhost:8080/delete/" + id).then((res) => {
+      console.log(res);
+    });
+  };
   return (
     <div className="blog-entry">
-    Posted on <span className="post-date">
-      {new Date(props.date).toLocaleString('en-US')}
-    </span>
-    {/* <% if(post.title.length > 37) { %>
+      Posted on{" "}
+      <span className="post-date">
+        {new Date(props.date).toLocaleString("en-US")}
+      </span>
       <h3>
-        <%= post.title.substring(0, 37) + "..." %>
+        {props.title.length > 37
+          ? props.title.substring(0, 37) + "..."
+          : props.title}
       </h3>
-      <% } else { %>
-      <h3>
-        <%= post.title %>
-      </h3>
-    <% } %> */}
-   <h3>{props.title.length > 37 ? props.title.substring(0, 37) + "..." : props.title}</h3> 
-    <div className="entry-footer">
-      <a href="/posts/<%= post._id %>" className="post-link">
-        <button type="button" className="btn btn-outline-primary">VIEW</button>
-      </a>
+      <div className="entry-footer">
+        <button type="button" className="btn btn-outline-primary">
+          VIEW
+        </button>
 
-      <a href="/edit/<%= post._id %>" className="post-link">
-        <button type="button" name="edit" value="<%= post.title %>" className="btn btn-outline-secondary">EDIT</button>
-      </a>
+        <button
+          type="button"
+          name="edit"
+          className="btn btn-outline-secondary"
+        >
+          EDIT
+        </button>
 
-      <form action="/delete?page=<%= currentPage %>" method="POST">
-        <button type="submit" name="delete" value="<%= post._id %>" className="btn btn-outline-danger">DELETE</button>
-      </form>
+        <form>
+          <button
+            onClick={deletePost}
+            name="delete"
+            className="btn btn-outline-danger"
+          >
+            DELETE
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
 export default PostEntry;

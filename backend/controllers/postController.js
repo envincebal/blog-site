@@ -33,21 +33,17 @@ module.exports = {
 
 
   compose_post: (req, res) => {
-    const postTitle = req.body.postTitle;
-    const postBody = req.body.postBody;
+    const postTitle = req.body.title;
+    const postContent = req.body.content;
+    const postDate = new Date();
 
-    let postDate = new Date();
-
-    const post = new Posts({
+  Posts.create({
       date: postDate,
       title: postTitle,
-      content: postBody
-    });
-
-    post.save(err => {
-      if (!err) {
-        res.redirect("/");
-      }
+      content: postContent
+    })
+    .then(post => {
+      res.status(201).json(post);
     });
   },
 
@@ -102,14 +98,16 @@ module.exports = {
   },
 
   delete_post: (req, res) => {
-    const deletePosts = req.body.delete;
-
-    Posts.findByIdAndRemove(deletePosts, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.redirect("/");
-      }
-    });
+    const deletePosts = req.params.id;
+ 
+    Posts.findOneAndDelete({
+       id: deletePosts
+      })
+      .then(post => {
+        if(!post){
+           res.status(200).send(deletePosts + " has been deleted");
+        }
+       
+      }); 
   }
 }
