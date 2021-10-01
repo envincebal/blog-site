@@ -1,14 +1,9 @@
 import React from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 import "./PostEntry.css";
 const PostEntry = (props) => {
-  const deletePost = (e, id) => {
-    e.preventDefault();
-    axios.delete("http://localhost:8080/delete/" + id).then((res) => {
-      console.log(res);
-    });
-  };
+
   return (
     <div className="blog-entry">
       Posted on{" "}
@@ -21,27 +16,37 @@ const PostEntry = (props) => {
           : props.title}
       </h3>
       <div className="entry-footer">
-        <button type="button" className="btn btn-outline-primary">
-          VIEW
-        </button>
-
-        <button
-          type="button"
-          name="edit"
-          className="btn btn-outline-secondary"
-        >
-          EDIT
-        </button>
-
-        <form>
-          <button
-            onClick={deletePost}
-            name="delete"
-            className="btn btn-outline-danger"
-          >
-            DELETE
+        <Link to={{ pathname: "/posts/" + props.id, state: { id: props.id } }}>
+          <button type="button" className="btn btn-outline-primary">
+            VIEW
           </button>
-        </form>
+        </Link>
+        <Link
+          to={{
+            pathname: "/edit/" + props.id,
+            state: {
+              id: props.id,
+              title: props.title,
+              content: props.content,
+            },
+          }}
+        >
+          <button
+            type="button"
+            name="edit"
+            className="btn btn-outline-secondary"
+          >
+            EDIT
+          </button>
+        </Link>
+        <button
+          name="delete"
+          className="btn btn-outline-danger"
+          onClick={props.deletePost}
+        >
+          DELETE
+        </button>
+      
       </div>
     </div>
   );

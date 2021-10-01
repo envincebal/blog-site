@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -13,37 +14,44 @@ const ComposePage = () => {
 
     const composeURL = "http://localhost:8080/compose";
 
-    axios.post(composeURL, {
-      title,
-      content,
-      date
-    })
-    .then(res => {
-      console.log(res.data);
-      window.open("/", "_self");
-    })
-  }
+    axios
+      .post(composeURL, {
+        title,
+        content,
+        date,
+      })
+      .then((res) => {
+        console.log(res.data);
+        window.open("/", "_self");
+      });
+  };
   return (
-    <div className="compose-body">
+    <div className="compose-body post-body">
+      <Link to={"/"}>
+        <Button type="button" className="back-button" variant="primary">
+          Back
+        </Button>
+      </Link>
       <h1>Compose</h1>
-      <Form action="/compose" method="POST">
+      <Form>
         <Form.Group className="form-group">
-          <Form.Label htmlFor="postTitle">Title</Form.Label>
+          <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
-            name="postTitle"
             className="form-control"
             autoComplete="off"
-            value={title} onChange={e => setTitle(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
-          <Form.Label htmlFor="postContent">Post</Form.Label>
+          <Form.Label>Post</Form.Label>
           <Form.Control
             as="textarea"
             name="postContent"
             className="form-control"
             autoComplete="off"
             rows="8"
-            value={content} onChange={e => setContent(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
         </Form.Group>
 

@@ -23,3 +23,9 @@
 .new-entry {
 	display: inline-block;
 }
+
+@media (max-width: 574px) {
+	.nav-container {
+		padding: 0 15px !important;
+	}
+}

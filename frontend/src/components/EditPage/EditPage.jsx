@@ -1,38 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import axios from "axios";
+
 const EditPage = () => {
+  const [title, setTitle] = useState(useLocation().state.title);
+  const [content, setContent] = useState(useLocation().state.content);
+  const postId = useLocation().state.id;
+
+  const handleEditPost = (e) => {
+    e.preventDefault();
+
+    const editURL = "http://localhost:8080/edit/" + postId;
+
+    axios
+      .put(editURL, {
+        title,
+        content,
+      })
+      .then((res) => {
+        console.log(res.data);
+        window.open("/", "_self");
+      });
+  };
   return (
-    <div className="compose-body">
-      <h1>Compose</h1>
-      <Form action="/edit/<%= id %>?_method=PUT" method="POST">
+    <div className="compose-body post-body">
+      <Link to={"/"}>
+        <Button type="button" className="back-button" variant="primary">
+          Back
+        </Button>
+      </Link>
+      <h1>Edit Post</h1>
+      <Form>
         <Form.Group className="form-group">
-          <Form.Label htmlFor="postTitle">Title</Form.Label>
+          <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
-            name="postTitle"
             className="form-control"
-            id="postTitle"
             autoComplete="off"
-            onKeyUp="composeHandler()"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
-          <Form.Label htmlFor="postBody">Post</Form.Label>
+          <Form.Label>Post</Form.Label>
           <Form.Control
             as="textarea"
-            id="postBody"
-            name="postBody"
             className="form-control"
             autoComplete="off"
             rows="8"
-            onKeyUp="composeHandler()"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
         </Form.Group>
         <Button
-          type="submit"
+          onClick={handleEditPost}
           name="button"
           className="btn btn-primary"
-          disabled
+          disabled={!title || !content}
         >
           Edit
         </Button>

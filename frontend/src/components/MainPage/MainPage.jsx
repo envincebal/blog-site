@@ -5,22 +5,34 @@ import NavBar from "../NavBar/NavBar";
 import ComposePage from "../ComposePage/ComposePage";
 import EditPage from "../EditPage/EditPage";
 import PostEntry from "../PostEntry/PostEntry";
+import PostView from "../PostView/PostView";
 
 import "./MainPage.css";
 
 const MainPage = () => {
   const [posts, setPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
-  const [lastPage, setLastPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     axios("http://localhost:8080").then((res) => {
       setPosts(res.data.posts);
-      setCurrentPage(res.data.currentPage);
-      setTotalItems(res.data.totalItems);
-      setLastPage(res.data.lastPage);
     });
   }, []);
+
+  const deletePost = (e, postId) => {
+    e.preventDefault();
+
+    axios.delete("http://localhost:8080/delete/" + postId).then((res) => {
+      console.log(res);
+    });
+
+    setPosts(posts.filter((item) => item._id !== postId));
+  };
+
+  const newerPage = () => setCurrentPage((page) => (page -= 1));
+
+  const previousPage = () => setCurrentPage((page) => (page += 1));
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -30,72 +42,48 @@ const MainPage = () => {
             exact
             path="/"
             render={() => {
+              const itemsPerPage = 3;
+              const lastPage = Math.ceil(posts.length / itemsPerPage);
+              const indexOfLastPost = currentPage * itemsPerPage;
+              const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+              const currentPosts = posts.slice(
+                indexOfFirstPost,
+                indexOfLastPost
+              );
+
+              const renderPosts = currentPosts.map((post) => (
+                <PostEntry
+                  key={post._id}
+                  id={post._id}
+                  title={post.title}
+                  content={post.content}
+                  date={post.date}
+                  deletePost={(e) => deletePost(e, post._id)}
+                />
+              ));
               return (
                 <div>
-                  <div className="entries-container">
-                    {posts.map((post) => (
-                      <PostEntry
-                        key={post._id}
-                        title={post.title}
-                        content={post.content}
-                        date={post.date}
-                      />
-                    ))}
-                  </div>
-
+                  <div className="entries-container">{renderPosts}</div>
                   <div className="page-buttons">
-                    {totalItems > 3 ? (
-                      currentPage !== 1 ? (
-                        <a
-                          href={`/?page=${currentPage - 1}`}
-                          className="newer-posts"
-                        >
-                          <button
-                            type="submit"
-                            className="btn btn-outline-info newer-posts-button"
-                          >
-                            Newer
-                          </button>
-                        </a>
-                      ) : (
-                        <a
-                          href={`/?page=${currentPage - 1}`}
-                          className="newer-posts"
-                        >
-                          <button
-                            type="submit"
-                            className="btn btn-outline-info newer-posts-button"
-                            disabled
-                          >
-                            Newer
-                          </button>
-                        </a>
-                      )
-                    ) : currentPage !== lastPage ? (
-                      <a
-                        href={`/?page=${currentPage + 1}`}
-                        className="older-posts"
-                      >
+                    {posts.length > 3 && (
+                      <div>
                         <button
                           type="submit"
-                          className="btn btn-outline-info older-posts-button"
+                          className="btn btn-outline-info newer-posts-button newer-posts"
+                          onClick={newerPage}
+                          disabled={currentPage === 1}
+                        >
+                          Newer
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn btn-outline-info older-posts-button older-posts"
+                          onClick={previousPage}
+                          disabled={currentPage === lastPage}
                         >
                           Previous
                         </button>
-                      </a>
-                    ) : (
-                      <a
-                        href={`/?page=${currentPage + 1}`}
-                        className="older-posts"
-                      >
-                        <button
-                          type="submit"
-                          className="btn btn-outline-info older-posts-button"
-                          disabled
-                        >
-                          Previous
-                        </button>
-                      </a>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -103,7 +91,8 @@ const MainPage = () => {
             }}
           />
           <Route exact path="/compose" component={ComposePage} />
-          <Route exact path="/edit" component={EditPage} />
+          <Route exact path="/posts/:id" component={PostView} />
+          <Route exact path="/edit/:id" component={EditPage} />
         </div>
       </BrowserRouter>
     </div>

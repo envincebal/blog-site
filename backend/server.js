@@ -9,7 +9,8 @@ const app = require("./app");
 const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DATABASE_PASSWORD);
 
 mongoose.connect(DB, {
-  useUnifiedTopology : true, useNewUrlParser : true 
+  useUnifiedTopology: true,
+  useNewUrlParser: true
 });
 // mongoose.set('useFindAndModify', false);
 

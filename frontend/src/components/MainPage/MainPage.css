@@ -1,5 +1,6 @@
 .entries-container {
 	height: 450px;
+	margin: 40px auto 0 auto;
 }
 
 .page-buttons {
@@ -9,12 +10,9 @@
 
 .newer-posts,
 .older-posts {
-	margin: 0 10px;
-}
-
-.newer-posts-button,
-.older-posts-button {
+	margin: 25px 10px;
 	width: 100px;
 	font-size: 18px;
 	font-weight: bold;
 }
+
