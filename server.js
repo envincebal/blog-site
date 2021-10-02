@@ -12,7 +12,7 @@ dotenv.config({
   path: "./config.env"
 });
 
-const DB = process.env.DATABASE; 
+const DB = process.env.DATABASE;
 
 mongoose.connect(DB, {
   useUnifiedTopology: true,
@@ -29,18 +29,13 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use(express.static("public"));
-app.use(methodOverride("_method")); 
-
-
-
 app.use("/", postsRouter);
 
-app.use(express.static(path.resolve(__dirname, "./frontend/build")));
-// Step 2:
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
-});
+app.use(express.static(path.join("frontend", "build")))
+
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+})
 
 
 let port = process.env.PORT || 8080;
