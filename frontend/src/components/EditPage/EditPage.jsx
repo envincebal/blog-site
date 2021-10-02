@@ -22,7 +22,7 @@ const EditPage = () => {
       })
       .then((res) => {
         console.log(res.data);
-        window.open("/", "_self");
+        window.open("/frontend", "_self");
       });
   };
   return (
