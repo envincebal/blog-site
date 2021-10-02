@@ -35,7 +35,7 @@ const MainPage = () => {
 
   return (
     <div className="App">
-      <BrowserRouter basename="/frontend">
+      <BrowserRouter>
         <NavBar />
         <div className="container">
           <Route
