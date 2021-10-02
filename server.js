@@ -31,11 +31,11 @@ app.use(bodyParser.json());
 
 app.use("/", postsRouter);
 
-app.use(express.static(path.join("frontend", "build")))
+app.use("/frontend", express.static(path.join(__dirname, "frontend", "build")));
 
-app.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
-})
+app.get("/frontend/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+});
 
 
 let port = process.env.PORT || 8080;
