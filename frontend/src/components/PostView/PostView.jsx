@@ -11,7 +11,7 @@ const PostView = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8080/posts/" + postId).then((res) => {
+    axios.get("https://protected-garden-31419.herokuapp.com/posts/" + postId).then((res) => {
       setTitle(res.data.title);
       setContent(res.data.content);
     });

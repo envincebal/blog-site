@@ -12,7 +12,7 @@ const ComposePage = () => {
   const handleCompose = (e) => {
     e.preventDefault();
 
-    const composeURL = "http://localhost:8080/compose";
+    const composeURL = "https://protected-garden-31419.herokuapp.com/compose";
 
     axios
       .post(composeURL, {

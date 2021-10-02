@@ -14,7 +14,7 @@ const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    axios("http://localhost:8080").then((res) => {
+    axios("https://protected-garden-31419.herokuapp.com").then((res) => {
       setPosts(res.data.posts);
     });
   }, []);
@@ -22,7 +22,7 @@ const MainPage = () => {
   const deletePost = (e, postId) => {
     e.preventDefault();
 
-    axios.delete("http://localhost:8080/delete/" + postId).then((res) => {
+    axios.delete("https://protected-garden-31419.herokuapp.com/delete/" + postId).then((res) => {
       console.log(res);
     });
 

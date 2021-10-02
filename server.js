@@ -12,7 +12,7 @@ dotenv.config({
   path: "./config.env"
 });
 
-const DB = process.env.CONNECTION_URI;
+const DB = process.env.CONNECTION_URI || 8080; 
 
 mongoose.connect(DB, {
   useUnifiedTopology: true,

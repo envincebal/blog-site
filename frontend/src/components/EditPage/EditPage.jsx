@@ -13,7 +13,7 @@ const EditPage = () => {
   const handleEditPost = (e) => {
     e.preventDefault();
 
-    const editURL = "http://localhost:8080/edit/" + postId;
+    const editURL = "https://protected-garden-31419.herokuapp.com/edit/" + postId;
 
     axios
       .put(editURL, {
