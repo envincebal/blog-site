@@ -33,7 +33,11 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build-client": "npm run build --prefix frontend",
+    "install-client": "npm i --prefix frontend"
   },
   "repository": {
     "type": "git",
